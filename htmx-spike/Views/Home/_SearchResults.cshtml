@@ -4,49 +4,18 @@
     Layout = null;
 }
 
-<div class="results">
+<div class="results mt-3">
 
-    <h1>@(Model.Results.Any() ? $"Results for '{Model.Query}'" : "Search")</h1>
+    @if (Model.Results.Any())
+    {
+        <h2>Results</h2>
 
-    <form asp-action="Search"
-          asp-controller="Home"
-          method="get"
-          class="row mt-3"
-          hx-boost="true"
-          hx-indicator="#loader">
-
-        <div class="col-auto">
-            <input type="search"
-                   asp-for="Query"
-                   class="form-control"
-                   autocomplete="off"
-                   hx-get="@(Url.Action("SearchResults", "Home"))"
-                   hx-target=".results"
-                   hx-trigger="keyup changed delay:250ms"
-                   hx-indicator="#loader" />
-        </div>
-
-        <div class="col-auto">
-            <button class="btn btn-primary" type="submit">Search</button>
-            <img src="~/img/three-dots.svg" id="loader" class="htmx-indicator" width="60" alt="Loading">
-        </div>
-
-    </form>
-
-    <div class="mt-3">
-
-        @if (Model.Results.Any())
-        {
-            <h2>Results</h2>
-
-            <ul>
-                @foreach (var result in Model.Results)
-                {
-                    <li>@result</li>
-                }
-            </ul>
-        }
-
-    </div>
+        <ul>
+            @foreach (var result in Model.Results)
+            {
+                <li>@result</li>
+            }
+        </ul>
+    }
 
 </div>

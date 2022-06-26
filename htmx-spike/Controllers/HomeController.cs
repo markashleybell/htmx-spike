@@ -51,7 +51,11 @@ public class HomeController : Controller
             model.Results = SearchData.Where(sd => sd.Contains(model.Query, StringComparison.OrdinalIgnoreCase));
         }
 
-        Response.Htmx(h => h.Push(Request.GetEncodedUrl()));
+        Response.Htmx(h =>
+        {
+            h.Trigger("headingUpdate");
+            h.Push(Request.GetEncodedUrl().Replace("Results", string.Empty));
+        });
 
         return PartialView("_SearchResults", model);
     }
