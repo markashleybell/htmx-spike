@@ -17,7 +17,11 @@
         <input type="search"
                asp-for="Query"
                class="form-control"
-               autocomplete="off" />
+               autocomplete="off"
+               hx-get="@(Url.Action("SearchResults", "Home"))"
+               hx-target=".results"
+               hx-trigger="keyup changed delay:250ms"
+               hx-indicator="#loader" />
     </div>
 
     <div class="col-auto">
@@ -27,18 +31,4 @@
 
 </form>
 
-<div class="results mt-3">
-
-    @if (Model.Results.Any())
-    {
-        <h2>Results</h2>
-
-        <ul>
-            @foreach (var result in Model.Results)
-            {
-                <li>@result</li>
-            }
-        </ul>
-    }
-
-</div>
+@await Html.PartialAsync("_SearchResults")

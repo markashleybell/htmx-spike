@@ -42,6 +42,16 @@ public class HomeController : Controller
         return View(model);
     }
 
+    public IActionResult SearchResults(SearchViewModel model)
+    {
+        if (!string.IsNullOrWhiteSpace(model?.Query))
+        {
+            model.Results = SearchData.Where(sd => sd.Contains(model.Query, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return PartialView("_SearchResults", model);
+    }
+
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()
     {
