@@ -10,7 +10,8 @@
       asp-controller="Home"
       method="get"
       class="row mt-3"
-      hx-boost="true">
+      hx-boost="true"
+      hx-indicator="#loader">
 
     <div class="col-auto">
         <input type="search"
@@ -21,6 +22,7 @@
 
     <div class="col-auto">
         <button class="btn btn-primary" type="submit">Search</button>
+        <img src="~/img/three-dots.svg" id="loader" class="htmx-indicator" width="60" alt="Loading">
     </div>
 
 </form>
