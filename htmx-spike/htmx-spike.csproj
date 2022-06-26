@@ -7,4 +7,8 @@
     <RootNamespace>htmx_spike</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Htmx" Version="0.0.18" />
+  </ItemGroup>
+
 </Project>

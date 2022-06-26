@@ -1,6 +1,8 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using htmx_spike.Models;
+using Htmx;
+using Microsoft.AspNetCore.Http.Extensions;
 
 namespace htmx_spike.Controllers;
 
@@ -48,6 +50,8 @@ public class HomeController : Controller
         {
             model.Results = SearchData.Where(sd => sd.Contains(model.Query, StringComparison.OrdinalIgnoreCase));
         }
+
+        Response.Htmx(h => h.Push(Request.GetEncodedUrl()));
 
         return PartialView("_SearchResults", model);
     }
