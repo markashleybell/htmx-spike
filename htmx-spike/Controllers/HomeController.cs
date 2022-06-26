@@ -44,7 +44,7 @@ public class HomeController : Controller
         return View(model);
     }
 
-    public IActionResult SearchResults(SearchViewModel model)
+    public async Task<IActionResult> SearchResults(SearchViewModel model)
     {
         if (!string.IsNullOrWhiteSpace(model?.Query))
         {
@@ -56,6 +56,11 @@ public class HomeController : Controller
             h.Trigger("headingUpdate");
             h.Push(Request.GetEncodedUrl().Replace("Results", string.Empty));
         });
+
+        if (Request.IsHtmx())
+        {
+            await Task.Delay(500);
+        }
 
         return PartialView("_SearchResults", model);
     }
