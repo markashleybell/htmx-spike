@@ -1,0 +1,42 @@
+﻿@model SearchViewModel
+
+@{
+    ViewData["Title"] = "Search";
+}
+
+<h1>@(Model.Results.Any() ? $"Results for '{Model.Query}'" : "Search")</h1>
+
+<form asp-action="Search"
+      asp-controller="Home"
+      method="get"
+      class="row mt-3"
+      hx-boost="true">
+
+    <div class="col-auto">
+        <input type="search"
+               asp-for="Query"
+               class="form-control"
+               autocomplete="off" />
+    </div>
+
+    <div class="col-auto">
+        <button class="btn btn-primary" type="submit">Search</button>
+    </div>
+
+</form>
+
+<div class="results mt-3">
+
+    @if (Model.Results.Any())
+    {
+        <h2>Results</h2>
+
+        <ul>
+            @foreach (var result in Model.Results)
+            {
+                <li>@result</li>
+            }
+        </ul>
+    }
+
+</div>

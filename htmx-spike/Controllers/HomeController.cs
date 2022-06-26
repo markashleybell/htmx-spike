@@ -6,6 +6,15 @@ namespace htmx_spike.Controllers;
 
 public class HomeController : Controller
 {
+    private static readonly string[] SearchData = new[]
+    {
+        "cat",
+        "dog",
+        "fish",
+        "catfish",
+        "dogfish"
+    };
+
     private readonly ILogger<HomeController> _logger;
 
     public HomeController(ILogger<HomeController> logger)
@@ -21,6 +30,16 @@ public class HomeController : Controller
     public IActionResult Privacy()
     {
         return View();
+    }
+
+    public IActionResult Search(SearchViewModel model)
+    {
+        if (!string.IsNullOrWhiteSpace(model?.Query))
+        {
+            model.Results = SearchData.Where(sd => sd.Contains(model.Query, StringComparison.OrdinalIgnoreCase));
+        }
+
+        return View(model);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
